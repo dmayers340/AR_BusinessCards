@@ -9,4 +9,16 @@ public class OnButtonPress : MonoBehaviour {
         Application.OpenURL("http://debmayers.com/");
         Debug.Log("tried opening URL");
     }
+
+    void SendEmail()
+    {
+        string email = "dmayers340@gmail.com";
+        string subject = MyEscapeURL("Email After Recieving AR Business Car");
+        string body = MyEscapeURL("Here is a quick email to send\r\nIt was great to see your business cards");
+        Application.OpenURL("mailto:" + email + "?subject=" + subject + "&body=" + body);
+    }
+    string MyEscapeURL(string url)
+    {
+        return WWW.EscapeURL(url).Replace("+", "%20");
+    }
 }
