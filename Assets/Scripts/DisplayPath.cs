@@ -8,6 +8,7 @@ public class DisplayPath : MonoBehaviour {
     public GameObject pathObject;
     public bool currentState;
     public Button button;
+    private bool hasBeenActivated;
 
     public void Start()
     {
@@ -23,8 +24,35 @@ public class DisplayPath : MonoBehaviour {
 
     public void showObject()
     {
-            StartCoroutine(ShowPaths());
-    
+        if (hasBeenActivated == false)
+        {
+            if (currentState)
+            {
+                foreach (GameObject path in paths)
+                {
+                    path.SetActive(false);
+                }
+            }
+            else
+            {
+                StartCoroutine(ShowPaths());
+            }
+            hasBeenActivated = true;
+        }
+        else
+        {
+            if (currentState)
+            {
+                pathObject.SetActive(false);
+            }
+            else
+            {
+                pathObject.SetActive(true);
+            }
+            currentState = !currentState;
+
+        }
+
     }
 
     IEnumerator ShowPaths()
