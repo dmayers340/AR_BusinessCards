@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DisplayPath : MonoBehaviour {
+public class DisplayPath : MonoBehaviour
+{
     public GameObject[] paths;
     public GameObject pathObject;
     public bool currentState;
@@ -26,6 +27,7 @@ public class DisplayPath : MonoBehaviour {
     {
         if (hasBeenActivated == false)
         {
+            pathObject.SetActive(true);
             if (currentState)
             {
                 foreach (GameObject path in paths)
