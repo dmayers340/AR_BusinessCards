@@ -9,13 +9,12 @@ public class DisplayPath : MonoBehaviour
     public GameObject pathObject;
     public bool currentState;
     public Button button;
-    private bool hasBeenActivated;
+    private bool firstTime = true;
 
     public void Start()
     {
         button.onClick.AddListener(showObject);
         currentState = false;
-
         foreach (GameObject path in paths)
         {
             path.SetActive(false);
@@ -25,36 +24,45 @@ public class DisplayPath : MonoBehaviour
 
     public void showObject()
     {
-        if (hasBeenActivated == false)
+        pathObject.SetActive(true);
+        if (firstTime)
         {
-            pathObject.SetActive(true);
-            if (currentState)
-            {
-                foreach (GameObject path in paths)
-                {
-                    path.SetActive(false);
-                }
-            }
-            else
-            {
-                StartCoroutine(ShowPaths());
-            }
-            hasBeenActivated = true;
+            setupPaths();
+            firstTime = false;
         }
         else
         {
-            if (currentState)
-            {
-                pathObject.SetActive(false);
-            }
-            else
-            {
-                pathObject.SetActive(true);
-            }
-            currentState = !currentState;
-
+            quickSetupPath();
         }
+        currentState = !currentState;
 
+    }
+
+    public void quickSetupPath()
+    {
+        if (currentState)
+        {
+            pathObject.SetActive(false);
+        }
+        else
+        {
+            pathObject.SetActive(true);
+        }
+    }
+
+    public void setupPaths()
+    {
+        if (currentState)
+        {
+            foreach (GameObject path in paths)
+            {
+                path.SetActive(false);
+            }
+        }
+        else
+        {
+            StartCoroutine(ShowPaths());
+        }
     }
 
     IEnumerator ShowPaths()
