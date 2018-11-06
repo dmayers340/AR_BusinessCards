@@ -17,6 +17,8 @@ using Vuforia;
 /// </summary>
 public class DefaultTrackableEventHandler : MonoBehaviour, ITrackableEventHandler
 {
+    public AudioSource audio;
+
     #region PROTECTED_MEMBER_VARIABLES
 
     protected TrackableBehaviour mTrackableBehaviour;
@@ -29,6 +31,8 @@ public class DefaultTrackableEventHandler : MonoBehaviour, ITrackableEventHandle
 
     protected virtual void Start()
     {
+        audio = this.GetComponent<AudioSource>();
+
         mTrackableBehaviour = GetComponent<TrackableBehaviour>();
         if (mTrackableBehaviour)
             mTrackableBehaviour.RegisterTrackableEventHandler(this);
@@ -86,7 +90,7 @@ public class DefaultTrackableEventHandler : MonoBehaviour, ITrackableEventHandle
         var rendererComponents = GetComponentsInChildren<Renderer>(true);
         var colliderComponents = GetComponentsInChildren<Collider>(true);
         var canvasComponents = GetComponentsInChildren<Canvas>(true);
-
+        audio.Play();
         // Enable rendering:
         foreach (var component in rendererComponents)
             component.enabled = true;
